@@ -1,8 +1,9 @@
-# shipa v1
+# Shipa Delivery
 
 Development Project
 
-### Shipa Delivery
+### Contact Center Platform
 
 - Agent Outbound Reporting
 - Agent Inbound Reporting
+- 
