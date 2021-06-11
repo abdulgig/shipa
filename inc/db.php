@@ -1,9 +1,9 @@
 <?php
 //error_reporting(0);
 
-$servername = "localhost";
-$username = "root";
-$password = "";
+$servername = "40.123.209.252";
+$username = "dev";
+$password = "shipa2215";
 $dbname = "dialer";
 
 try {
