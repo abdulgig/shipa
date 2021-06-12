@@ -65,7 +65,7 @@
 
 .daterangepicker {
 margin-left:100px !important; 
-width:100% !important;
+width:40% !important;
 }
 .buttons{ 
 width:100px; background:#38AB38;
