@@ -149,20 +149,17 @@ $pagination_open->records_per_page( $records_per_page );
 </header>
 <div class="wrapper">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                  <div class="page-title-box">
-                     <div class="btn-group pull-right">
-                    
-                     </div>
+        
+            <div class="row">
+                  <div class="page-title-box">                   
                      <h4 class="page-title ">
-                        <img class="icon-colored ml-0" src="assets/images/icons/netsuite.svg" title="netsuite.svg" alt="colored-icons">
+                        <img class="icon-colored" src="assets/images/icons/netsuite.svg" title="netsuite.svg" alt="netsuite icons">
                         Netsuite Outbound Agents
                      </h4>
-                     <p class="m-t-20"> This section allows you to see the statistics of your outbound agents dialing via Netsuite. This module also allows you to track the status of the agents 
+                     <p class="m-t-5"> This section allows you to see the statistics of your outbound agents dialing via Netsuite. This module also allows you to track the status of the agents 
 					<span style="color:#38AB38; font-weight:bold;">LIVE</span>	</p>	                      
 	              </div>
-
+               </div>
 			
 				<div class="row">			
 			       <div class="col-lg-6 col-md-4 col-sm-6"> 
@@ -180,14 +177,12 @@ $pagination_open->records_per_page( $records_per_page );
 			
 			<div class="row">
 			<div class="page-title-box">
-                     <div class="btn-group pull-right">
-                    
-                     </div>
+                     
                      <h4 class="page-title ">
-                        <img class="icon-colored ml-0" src="assets/images/ccagent.png" title="ccagent" alt="colored-icons">
+                        <img class="icon-colored" src="assets/images/ccagent.png" title="ccagent" alt="ccagent icons">
                         Live Agents
                      </h4>
-                     <p class="m-t-20">By default, all agent who made calls today would be listed. Their status would be shown as well. However, to pull records for old agents, please select a date range from below.</p>                      
+                     <p class="m-t-5">By default, all agent who made calls today would be listed. Their status would be shown as well. However, to pull records for old agents, please select a date range from below.</p>                      
 	              </div>
 			
 			</div>
@@ -200,44 +195,43 @@ $pagination_open->records_per_page( $records_per_page );
 			
 			
 			</div>
+			
 			<!-- end user aget data lis -->
 			
 			<!-- start agent report box -->
 			<br/>
 			<div class="row">
 			<div class="page-title-box">
-                     <div class="btn-group pull-right">
-                    
-                     </div>
+                  
                      <h4 class="page-title ">
-                        <img class="icon-colored ml-0" src="assets/images/paper.png" title="paper" alt="colored-icons">
+                        <img class="icon-colored" src="assets/images/paper.png" title="paper" alt="paper icons">
                         Agents Reports
                      </h4>
-                     <p class="m-t-20">The calls for all agents for the current month are shown. However, if you want to pull records for older date , please select a date range from below.</p>                      
+                     <p class="m-t-5">The calls for all agents for the current month are shown. However, if you want to pull records for older date , please select a date range from below.</p>                      
 	              </div>
 				  
 					
-			<!-- <div class="col-lg-12 col-md-4 col-sm-6"> 
-				<div class="card-box col-md-12"> -->
+			 <div class="row"> 
+				
                     <div class="col-md-10">                        
-                          <div class="col-sm-5">  
+                          <div class="col-md-5" >
                               <h5 style="font-weight:bold;">Select Date</h5>
                                     <div id="reportrange2" class="pull-right form-control">
                                         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                         <span></span>
                                     </div>                                
-                            </div>
+                            </div>   
                     </div>
                         <div class="col-md-2 m-t-40" >
                           <button class="btn pull-right buttons" ><a href="#" download style="color:#fff; font-weight:bold; margin-top:30px;"> Export</a></button>
 						</div>
-                   <!-- </div>
-                </div> -->
+                   
+                </div> 
             
 	
 			<!-- table area -->
 			
-			<div class="row m-t-50">
+			<div class="row">
                             <div class="col-sm-12">
                                 <div class="table-responsive">
                                     <table class="table m-t-20 table-custom text-center" id="datatable-buttons">
@@ -301,7 +295,7 @@ $pagination_open->records_per_page( $records_per_page );
                                                     <td><?php echo $agentLog['points']?></td>
 
                                                   <!--  <td><a href="<?php //echo $agentLog['location'];?>" target="_blank"><img class="custom-icon-colored" src="assets/images/icons/video_file.svg" title="video_file.svg" alt="colored-icons" /></a></td> -->
-                                                    <td class="noExl"><a onclick="fnviewagent('<?php echo $agentLog['user'];?>');" href="javascript:;">View</a></td>
+                                                    <td class="noExl"><a onClick="fnviewagent('<?php echo $agentLog['user'];?>');" href="javascript:;">View</a></td>
                                                 </tr>
                                             <?php }
                                         } else{ ?>
@@ -331,7 +325,7 @@ $pagination_open->records_per_page( $records_per_page );
 		
 			</div>
 			
-        </div>
+        
     </div>
 </div>
 
