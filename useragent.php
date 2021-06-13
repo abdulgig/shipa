@@ -59,7 +59,7 @@
   background-color: #a2f289;
   border-radius: 50%;
   display: inline-block;
-  margin-left: 74%;
+  margin-left: 78%;
   border: 3px solid #f8c90d;
 }
 
@@ -163,13 +163,13 @@ $pagination_open->records_per_page( $records_per_page );
 			
 				<div class="row">			
 			       <div class="col-lg-6 col-md-4 col-sm-6"> 
-				 <div class="col-md-12" style="border:2px solid #f3f3f3; margin-bottom:30px; padding: 10px; font-weight:bold; color:#999;">
+				 <div class="col-md-12" style="border:2px solid #f3f3f3; margin-bottom:10px; amrgin-top:10px; padding:12px; font-weight:bold; color:#999;">
                     Agents INCALL : <?php echo $incallsRes; ?> <span class="dotgreeg"></span>
                   </div>
                  </div>
 			
 				 <div class="col-lg-6 col-md-4 col-sm-6"> 
-				   <div class="col-md-12" style="border:2px solid #f3f3f3; margin-bottom:30px; padding: 10px;font-weight:bold; color:#999;">
+				   <div class="col-md-12" style="border:2px solid #f3f3f3; margin-bottom:10px; padding: 12px;font-weight:bold; color:#999;">
                        Agents IDLE: <?php echo $idleRes;?> <span class="dot"></span>
                     </div>
                  </div>
