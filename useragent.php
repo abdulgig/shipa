@@ -163,7 +163,7 @@ $pagination_open->records_per_page( $records_per_page );
 			
 				<div class="row">			
 			       <div class="col-lg-6 col-md-4 col-sm-6"> 
-				 <div class="col-md-12" style="border:2px solid #f3f3f3; margin-bottom:10px; amrgin-top:10px; padding:12px; font-weight:bold; color:#999;">
+				 <div class="col-md-12" style="border:2px solid #f3f3f3; margin: 0px 0px 10px -10px;; amrgin-top:10px; padding:12px; font-weight:bold; color:#999;">
                     Agents INCALL : <?php echo $incallsRes; ?> <span class="dotgreeg"></span>
                   </div>
                  </div>
