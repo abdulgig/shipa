@@ -211,7 +211,7 @@ $pagination_open->records_per_page( $records_per_page );
 	              </div>
 				  
 					
-			 <div class="row"> 
+		<!-- <div class="row"> 
 				
                     <div class="col-md-10">                        
                           <div class="col-md-5" >
@@ -226,7 +226,35 @@ $pagination_open->records_per_page( $records_per_page );
                           <button class="btn pull-right buttons" ><a href="#" download style="color:#fff; font-weight:bold; margin-top:30px;"> Export</a></button>
 						</div>
                    
-                </div> 
+                </div>  -->
+				    <div class="row">
+                    <div class="col-sm-12">
+                        <form id="searchForm" method="get" action="" onsubmit="return fnsubmitsearch();">
+                            <input type="hidden" value="<?php echo @$_GET['page']?>" name="page" id="page">
+                            <input type="hidden" value="" name="start_date" id="start_date">
+                            <input type="hidden" value="" name="end_date" id="end_date">
+                            <!--Select Date <br/> -->
+                            <div class="col-sm-5">  
+                                 <h5 style="font-weight:bold;">Select Date</h5>
+                                    <div id="reportrange2" class="pull-right form-control">
+                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                        <span></span>
+                                    </div>                                
+                            </div>
+                            <div class="col-sm-5 m-t-40">
+                                <div class="d-flex">                                                                        
+                                    <input type="submit" class="btn btn-primary" value="Search" id="submit">&nbsp;                                     
+                                    
+                                </div>
+                            </div>
+                        </form>
+						 <div class="col-md-2 m-t-40" >
+                          <button class="btn pull-right buttons" ><a href="#" download style="color:#fff; font-weight:bold; margin-top:30px;"> Export</a></button>
+						</div>
+						
+						
+                    </div>
+                </div>
             
 	
 			<!-- table area -->
@@ -480,7 +508,7 @@ setInterval(CheckRefresh, 2000); //every 120 secs
             $('#end_date').val(end.format('YYYY-MM-DD'));
         });
 
-        function resetForm(){alert('k');
+        function resetForm(){ //alert('k');
             $('#start_date').val('');
             $('#end_date').val('');
             $('#reportrange span').html('');
