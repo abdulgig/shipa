@@ -64,8 +64,10 @@
 }
 
 .daterangepicker {
-margin-left:100px !important; 
-width:40% !important;
+margin-left:60px !important; 
+left:20px !important;
+
+
 }
 .buttons{ 
 width:100px; background:#38AB38;
@@ -234,7 +236,7 @@ $pagination_open->records_per_page( $records_per_page );
                             <input type="hidden" value="" name="start_date" id="start_date">
                             <input type="hidden" value="" name="end_date" id="end_date">
                             <!--Select Date <br/> -->
-                            <div class="col-sm-5">  
+                            <div class="col-sm-5" style="margin-left:-12px;">  
                                  <h5 style="font-weight:bold;">Select Date</h5>
                                     <div id="reportrange2" class="pull-right form-control">
                                         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
@@ -249,7 +251,7 @@ $pagination_open->records_per_page( $records_per_page );
                             </div>
                         </form>
 						 <div class="col-md-2 m-t-40" >
-                          <button class="btn pull-right buttons" ><a href="#" download style="color:#fff; font-weight:bold; margin-top:30px;"> Export</a></button>
+                          <button class="btn pull-right buttons" style="margin-right:-24px;" ><a href="#" download style="color:#fff; font-weight:bold; margin-top:30px;"> Export</a></button>
 						</div>
 						
 						
@@ -500,8 +502,8 @@ setInterval(CheckRefresh, 2000); //every 120 secs
         $('#reportrange2').daterangepicker({
             "showDropdowns": true,
             "linkedCalendars": false,
-            "startDate": "10/06/2020",
-            "endDate": "10/12/2020"
+            "startDate": "10/06/2021",
+            "endDate": "10/12/2021"
         }, function(start, end, label) {
             $('#reportrange2 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             $('#start_date').val(start.format('YYYY-MM-DD'));
