@@ -77,6 +77,7 @@ else{
 					<thead class="thead-light" style="background:#f4f4f4;">
 					<tr>
 						<th class="text-center">Agent</th>
+                                                <th class="text-center">Name</th>
 						<th class="text-center">Status</th>
 						<th class="text-center">Dialed Number</th>
 						<th class="text-center">Time Elaspsed</th>
@@ -100,6 +101,7 @@ else{
 							
 							                                                   
 								<td><?php echo $rowliveagent['agent'] ;?></td>
+                                                                <td><?php echo $rowliveagent['name'] ;?></td>
 								<td>
 								<?php if($rowliveagent['status']=="INCALL") { ?>
 								<span style="border-radius:50%;background-color: #38AB38;width: 14px;height: 13px;display: inline-block;"></span>
@@ -122,7 +124,7 @@ else{
 							<?php } ?>
 							
 					<?php } else {
-						echo "Records Not Found";
+						echo "No Live Agents";
 					}
 						?>
 						
