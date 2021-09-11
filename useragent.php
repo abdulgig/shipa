@@ -66,7 +66,7 @@
 .daterangepicker {
 margin-left:60px !important; 
 left:20px !important;
-
+width:40%;
 
 }
 .buttons{ 
@@ -76,7 +76,10 @@ width:100px; background:#38AB38;
 </head>
 <body>
 <?php
-include "useragent-backend.php";
+//include "useragent-live.php";
+
+//include "outbound-backend.php";
+
 include 'pagination/Zebra_Pagination.php';
 
 $records_per_page = 50;
@@ -87,7 +90,10 @@ $pagination_open->records( $countRes );
 $pagination_open->labels( '< Prev', 'Next >' );
 $pagination_open->records_per_page( $records_per_page );
 
+
+ 
 ?>
+   
 <header id="topnav">
     <div class="topbar-main">
         <div class="container">
@@ -138,7 +144,11 @@ $pagination_open->records_per_page( $records_per_page );
                        <a href="outbound.php" class="color-white"><i class="mdi mdi-phone icon-white"></i>Outbound Reports</a> 
                     </li>
                     <li class="has-submenu">
-                       <a href="useragent.php" class="color-white"><i class="mdi mdi-account icon-white"></i>User Agent</a>
+                       <a href="useragent.php" class="color-white"><i class="mdi mdi-account icon-white"></i>Live Agents</a>
+                    </li>
+					  <li class="has-submenu">
+                       <a href="callbycountry.php" class="color-white"><i class="mdi mdi-account icon-white"></i>Call By Country</a>
+							 
                     </li>
                     <li class="has-submenu f-right">
                         <a href="#" class="color-white" id="time-now"></a>
@@ -155,7 +165,7 @@ $pagination_open->records_per_page( $records_per_page );
             <div class="row">
                   <div class="page-title-box">                   
                      <h4 class="page-title ">
-                        <img class="icon-colored" src="assets/images/icons/netsuite.svg" title="netsuite.svg" alt="netsuite icons">
+                        <img class="icon-colored" src="assets/images/icons/netsuite.svg" title="" alt="netsuite icons">
                         Netsuite Outbound Agents
                      </h4>
                      <p class="m-t-5"> This section allows you to see the statistics of your outbound agents dialing via Netsuite. This module also allows you to track the status of the agents 
@@ -165,15 +175,15 @@ $pagination_open->records_per_page( $records_per_page );
 			
 				<div class="row">			
 			       <div class="col-lg-6 col-md-4 col-sm-6"> 
-				 <div class="col-md-12" style="border:2px solid #f3f3f3; margin: 0px 0px 10px -10px;; amrgin-top:10px; padding:12px; font-weight:bold; color:#999;">
-                    Agents INCALL : <?php echo $incallsRes; ?> <span class="dotgreeg"></span>
-                  </div>
+				   <span id="RefreshIncalls"></span>
+				
                  </div>
 			
 				 <div class="col-lg-6 col-md-4 col-sm-6"> 
-				   <div class="col-md-12" style="border:2px solid #f3f3f3; margin-bottom:10px; padding: 12px;font-weight:bold; color:#999;">
-                       Agents IDLE: <?php echo $idleRes;?> <span class="dot"></span>
-                    </div>
+				 <span id="RefreshIdle"></span>
+				  <!-- <div class="col-md-12" style="border:2px solid #f3f3f3; margin-bottom:10px; padding: 12px;font-weight:bold; color:#999;">
+                       Agents IDLE: <?php //echo $idleRes;?> <span class="dot"></span>
+                    </div> -->
                  </div>
 			  </div>
 			
@@ -181,17 +191,19 @@ $pagination_open->records_per_page( $records_per_page );
 			<div class="page-title-box">
                      
                      <h4 class="page-title ">
-                        <img class="icon-colored" src="assets/images/ccagent.png" title="ccagent" alt="ccagent icons">
+                        <img class="icon-colored" src="assets/images/ccagent.png" title="" alt="ccagent icons">
                         Live Agents
                      </h4>
-                     <p class="m-t-5">By default, all agent who made calls today would be listed. Their status would be shown as well. However, to pull records for old agents, please select a date range from below.</p>                      
+                     <p class="m-t-5">By default, all agents who made calls today would be listed. Their status would be shown as well.</p>                      
 	              </div>
 			
 			</div>
             <!-- start user aget data lis -->
 			<div class="row">			                           
                  <div class="table-responsive">
-				    <span id="RefreshAgentList"></span>            
+				     <span id="RefreshAgentList"></span>
+	
+				
                  </div>
                            
 			
@@ -202,158 +214,7 @@ $pagination_open->records_per_page( $records_per_page );
 			
 			<!-- start agent report box -->
 			<br/>
-			<div class="row">
-			<div class="page-title-box">
-                  
-                     <h4 class="page-title ">
-                        <img class="icon-colored" src="assets/images/paper.png" title="paper" alt="paper icons">
-                        Agents Reports
-                     </h4>
-                     <p class="m-t-5">The calls for all agents for the current month are shown. However, if you want to pull records for older date , please select a date range from below.</p>                      
-	              </div>
-				  
-					
-		<!-- <div class="row"> 
-				
-                    <div class="col-md-10">                        
-                          <div class="col-md-5" >
-                              <h5 style="font-weight:bold;">Select Date</h5>
-                                    <div id="reportrange2" class="pull-right form-control">
-                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                                        <span></span>
-                                    </div>                                
-                            </div>   
-                    </div>
-                        <div class="col-md-2 m-t-40" >
-                          <button class="btn pull-right buttons" ><a href="#" download style="color:#fff; font-weight:bold; margin-top:30px;"> Export</a></button>
-						</div>
-                   
-                </div>  -->
-				    <div class="row">
-                    <div class="col-sm-12">
-                        <form id="searchForm" method="get" action="" onsubmit="return fnsubmitsearch();">
-                            <input type="hidden" value="<?php echo @$_GET['page']?>" name="page" id="page">
-                            <input type="hidden" value="" name="start_date" id="start_date">
-                            <input type="hidden" value="" name="end_date" id="end_date">
-                            <!--Select Date <br/> -->
-                            <div class="col-sm-5" style="margin-left:-12px;">  
-                                 <h5 style="font-weight:bold;">Select Date</h5>
-                                    <div id="reportrange2" class="pull-right form-control">
-                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                                        <span></span>
-                                    </div>                                
-                            </div>
-                            <div class="col-sm-5 m-t-40">
-                                <div class="d-flex">                                                                        
-                                    <input type="submit" class="btn btn-primary" value="Search" id="submit">&nbsp;                                     
-                                    
-                                </div>
-                            </div>
-                        </form>
-						 <div class="col-md-2 m-t-40" >
-                          <button class="btn pull-right buttons" style="margin-right:-24px;" ><a href="#" download style="color:#fff; font-weight:bold; margin-top:30px;"> Export</a></button>
-						</div>
-						
-						
-                    </div>
-                </div>
-            
-	
-			<!-- table area -->
-			
-			<div class="row">
-                            <div class="col-sm-12">
-                                <div class="table-responsive">
-                                    <table class="table m-t-20 table-custom text-center" id="datatable-buttons">
-                                        <thead class="thead-light" style="background:#f4f4f4;">
-                                        <tr>
-                                            <th class="text-center">#Ranking</th>
-                                            <th class="text-center">Agent</th>
-                                            <th class="text-center">Total Calls</th>                                            
-                                            <th class="text-center">AHT</th>
-                                            <th class="text-center">Answered/ Unanswered</th>
-                                            <th class="text-center">Rated/ Unrated</th>
-                                            <th class="text-center">INCALL Time</th>
-                                          <th class="text-center">Points</th>
-                                            <th class="text-center noExl">Action</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <?php $i = 1;
-                                        $flg = 0;
-                                        $new_flg = 0;
-                                        if($agentLogs){
-                                           // echo "<pre>";print_r($agentLogs);
-                                            foreach ($agentLogs as $key => $agentLog) { ?>
-                                                <tr>
-                                                    <th scope="row">
-                                                        <p class="thumb-sm img-circle" style="width: 100%;">
-                                                            <?php if(isset($agentLog['points']) and $agentLog['points'] !=''){
-                                                                if($agentLog['points']>=1){
-                                                                    if($new_flg  == 0){
-                                                                        $flg = 1;
-                                                                    }
-                                                                    echo $i;
-                                                                    $i++;
-                                                                }else{
-                                                                    echo '0';
-                                                                }
-                                                            }else{
-                                                                echo '0';
-                                                            }?>
-                                                            <?php if(isset($flg) and $flg == 1){
-                                                                $flg = '';
-                                                                $new_flg = 1;
-                                                                ?>
-                                                                <img src="cup.png" width="32px;" />
-                                                            <?php }?>
-                                                        </p>
-                                                    </th>
-                                                    <td>
-                                                    <a href="<?php echo 'agentdetails.php?user='.$agentLog['user'] ?>">
-                                                    <span class="m-0"><?php if(isset($users[$agentLog['user']])){ echo $users[$agentLog['user']]; }else{ echo 'N/A';} ?></span><br>
-                                                    <span class="m-0 text-muted font-13"><small><?php echo $agentLog['user'];?></small></span>
-                                                            <!--<h5 class="m-0"></h5>
-                                                            <p class="m-0 text-muted font-13"></p>-->
-                                                        </a>
-                                                    </td>
-                                                    <td><?php echo $agentLog['total_user'] ?></td>
-                                                    <td><?php echo number_format((float)((number_format((float)($agentLog['cnt_talk_sec']/60), 2, '.', ''))/$agentLog['total_user']), 2, '.', '') ?> min/ call</td>
-                                                    <td></td>
-                                                    <td><?php echo $agentLog['survey_option_1']?>/</td>
-                                                    <td><?php echo number_format((float)($agentLog['cnt_talk_sec']/60), 2, '.', '') ?> mins</td>
-                                                    <td><?php echo $agentLog['points']?></td>
-
-                                                  <!--  <td><a href="<?php //echo $agentLog['location'];?>" target="_blank"><img class="custom-icon-colored" src="assets/images/icons/video_file.svg" title="video_file.svg" alt="colored-icons" /></a></td> -->
-                                                    <td class="noExl"><a onClick="fnviewagent('<?php echo $agentLog['user'];?>');" href="javascript:;">View</a></td>
-                                                </tr>
-                                            <?php }
-                                        } else{ ?>
-
-                                            <tr><td colspan="10"><b class="text-danger text-center">No Data Found</b></td></tr>
-                                        <?php } ?>
-                                        </tbody>
-                                    </table>
-                                    <?php echo $pagination_open->render();?>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End of Table Area -->
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			<!-- end agent report box -->
-			
 		
-			</div>
 			
         
     </div>
@@ -445,11 +306,13 @@ $pagination_open->records_per_page( $records_per_page );
 <script src="assets/pages/jquery.form-pickers.init.js"></script>
 <!-- <script src="assets/pages/jquery.datatables.init.js"></script> -->
 
+
 <script>
+
 function CheckRefresh() {
     $.ajax({
         url: 'getagent_ajax.php',       
-         success: function (data) {       
+         success: function (data) {      
          $('#RefreshAgentList').html(data); //output to html
         }
     });
@@ -457,6 +320,36 @@ function CheckRefresh() {
 
 $(document).ready(CheckRefresh); // Call on page load
 setInterval(CheckRefresh, 2000); //every 120 secs
+
+
+
+// check incall service
+function CheckIncall() {
+    $.ajax({
+        url: 'IncallService.php',       
+         success: function (data) {       
+         $('#RefreshIncalls').html(data); //output to html
+        }
+    });
+}
+
+$(document).ready(CheckIncall); // Call on page load
+setInterval(CheckIncall, 2000); //every 120 secs
+
+// check idle call service
+function CheckIdle() {
+    $.ajax({
+        url: 'IdleService.php',       
+         success: function (data) {       
+         $('#RefreshIdle').html(data); //output to html
+        }
+    });
+}
+
+$(document).ready(CheckIdle); // Call on page load
+setInterval(CheckIdle, 2000); //every 120 secs
+
+
 
 
 
@@ -502,7 +395,7 @@ setInterval(CheckRefresh, 2000); //every 120 secs
         $('#reportrange2').daterangepicker({
             "showDropdowns": true,
             "linkedCalendars": false,
-            "startDate": "10/06/2021",
+            "startDate": Date.now(),
             "endDate": "10/12/2021"
         }, function(start, end, label) {
             $('#reportrange2 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));

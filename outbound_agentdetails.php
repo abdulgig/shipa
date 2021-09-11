@@ -222,7 +222,7 @@ $pagination_open->records_per_page( $records_per_page );
                 <div class="card-box widget-box-two widget-two-primary">
                     <i class="mdi mdi-layers widget-two-icon"></i>
                     <div class="wigdet-two-content">
-                        <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Total Talk Time">Total Talk Time</p>
+                        <p class="m-0 text-uppercase font-600 font-secondary text-overflow" title="Total Call Time">Total Call Time</p>
                         <h2><span data-plugin="counterup"><?php echo number_format(($currentTalkSec/60), 2); ?></span> <small><i class="mdi mdi-arrow-up text-success"></i></small></h2>
                         <p class="text-muted m-0"><b>Last: </b><?php echo date("d M, Y H:i:s", strtotime($totalOutboundCall['call_answer_time']));//$totalTalkSec ?></p>
                     </div>
@@ -304,7 +304,7 @@ $pagination_open->records_per_page( $records_per_page );
                                         <th class="text-center">#</th>
                                         <th class="text-center">Customer Phone</th>
                                         <th class="text-center">Call Date</th>
-                                        <th class="text-center">Talk Time</th>
+                                        <th class="text-center">Call Time</th>
                                         <th class="text-center">Call Status</th>
                                         <th class="text-center">Rated</th>
                                         <th class="text-center">Rating</th>

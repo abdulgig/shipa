@@ -1,11 +1,25 @@
 <?php
 //error_reporting(0);
 
-$servername = "40.123.209.252";
+/*$servername = "10.200.1.20";
+$username = "svy";
+$password = "svy9278";
+$dbname = "dialer";*/
+
+/*
+$servername = "10.200.1.4";
 $username = "dev";
 $password = "shipa2215";
 $dbname = "dialer";
+*/
 
+$servername = "40.123.209.252";
+$username = "dev";
+$password = "test6293";
+$dbname = "dialer";
+
+
+//$conn = mysqli_connect($servername, $username, $password, $dbname);
 try {
     $conn = new PDO("mysql:host=$servername;port=3306;dbname=$dbname", $username, $password);
 
