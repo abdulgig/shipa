@@ -58,67 +58,7 @@ $pagination_open->labels( '< Prev', 'Next >' );
 $pagination_open->records_per_page( $records_per_page );
 
 ?>
-<header id="topnav">
-    <div class="topbar-main">
-        <div class="container">
-
-            <!-- Logo container-->
-            <div class="logo">
-                <!-- Text Logo -->
-                <!--<a href="index.html" class="logo">-->
-                <!--Zircos-->
-                <!--</a>-->
-                <!-- Image Logo -->
-                <a href="index.html" class="logo">
-                    <img src="assets/images/logo.png" alt="" height="30">
-                </a>
-
-            </div>
-            <!-- End Logo container-->
-
-
-            <div class="menu-extras">
-                <div class="menu-item">
-                    <!-- Mobile menu toggle-->
-                    <a class="navbar-toggle">
-                        <div class="lines">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </a>
-                    <!-- End mobile menu toggle-->
-                </div>
-            </div>
-            <!-- end menu-extras -->
-
-        </div> <!-- end container -->
-    </div>
-    <!-- end topbar-main -->
-
-    <div class="navbar-custom">
-        <div class="container">
-            <div id="navigation">
-                <!-- Navigation Menu-->
-                <ul class="navigation-menu">
-                    <li class="has-submenu">
-                        <a href="inbound.php" class="color-white"><i class="mdi mdi-view-dashboard icon-white"></i>Inbound Reports</a>
-                    </li>
-                    <li class="has-submenu">
-                       <a href="outbound.php" class="color-white"><i class="mdi mdi-phone icon-white"></i>Outbound Reports</a> 
-                    </li>
-                    <li class="has-submenu">
-                       <a href="useragent.php" class="color-white"><i class="mdi mdi-account icon-white"></i>Live Agents</a>
-                    </li>
-                    <li class="has-submenu f-right">
-                        <a href="#" class="color-white" id="time-now"></a>
-                    </li>
-                </ul>
-                <!-- End navigation menu -->
-            </div> <!-- end #navigation -->
-        </div> <!-- end container -->
-    </div> <!-- end navbar-custom -->
-</header>
+<?php include('header.php');?>
 <div class="wrapper">
     <div class="container">
         <div class="row">
