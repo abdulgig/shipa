@@ -59,30 +59,41 @@
 </head>
 <body>
 <?php
-//include "useragent-live.php";
+include "callbycountry-backend.php";
 
-include "inbound-backend.php";
-include 'pagination/Zebra_Pagination.php';
-$records_per_page = 50;
-$pagination_open = new Zebra_Pagination();
-$pagination_open->navigation_position( isset( $_GET[ 'navigation_position' ] ) && in_array( $_GET[ 'navigation_position' ], array( 'left', 'right' ) ) ? $_GET[ 'navigation_position' ] : 'outside' );
-if ( isset( $_GET[ 'reversed' ] ) )$pagination_open->reverse( true );
-$pagination_open->records( $countRes );
-$pagination_open->labels( '< Prev', 'Next >' );
-$pagination_open->records_per_page( $records_per_page );
 
-$country= "SELECT  * FROM countries Order By id ASC ";
-$get_country = $conn->query($country, PDO::FETCH_ASSOC);
-$vicidial_netsuite_country=array();
-//$liveagents = $get_live_agaent->fetch();
+//$country= "SELECT  * FROM countries WHERE phonecode!=0 Order By id ASC ";
+//$outcalls ="SELECT COUNT(*) as country, ID from outcalls WHERE country!=0 Order By country ASC";
 
-//print_r($liveagents); die;
+//$outcalls="SELECT COUNT(ot.country) as countrycount, ot.*, c.*
+//FROM outcalls AS ot
+//JOIN countries AS c ON ot.country = c.phonecode
+//WHERE country!=0 GROUP BY ot.country ORDER BY ot.country ASC LIMIT 10";
 
-while ($resultcountry= $get_country->fetch()) 
+$outcalls= "SELECT * FROM countries WHERE phonecode IN (1,973,20,98,964,972,962,965,961,968,970,974,966,963,90,971,967,44) ORDER BY id DESC";
+$get_country = $conn->query($outcalls, PDO::FETCH_ASSOC);
+while($resultcountry= $get_country->fetch()) 
 {
-    $vicidial_netsuite_country[] = $resultcountry; 
+  $vicidial_netsuite_country[] = $resultcountry; 
+  //$vicidial_netsuite_country[] = $resultcountry; 
 }
- 
+
+
+$custCallsSql = "SELECT  COUNT(*) as countrycount, c.name as cname FROM countries AS c
+JOIN outcalls AS ot  ON ot.country = c.phonecode
+WHERE c.phonecode!='' group BY c.name ORDER BY countrycount LIMIT 0,6";
+$custCalls= $conn->query($custCallsSql, PDO::FETCH_ASSOC);
+//$getcountcall = $custCalls->fetch();
+
+
+//print_r($custCalls->fetch()); die;
+
+while($countcountry= $custCalls->fetch()) 
+{
+  $counttotal_country[] = $countcountry['countrycount']; 
+  $counttotal_countryname[] = $countcountry['cname']; 
+ }
+//print_r($counttotal_countryname); die;
 ?>
    
 <?php include('header.php');?>
@@ -108,14 +119,25 @@ while ($resultcountry= $get_country->fetch())
                      </h4>
 					  <p class="m-t-5"></p>
 					  <div style="margin-left:-12px;">	
-					 <div class="col-md-12"> 
-					    <div id="reportrange2" class="pull-left form-control">
-                                <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+					   <form id="searchForm" method="get" action="" name="search" id="search" onsubmit="return fnsubmitsearch();">
+					  
+					 <div class="col-md-11"> 
+					 <input type="hidden" value="<?php echo @$_GET['call']?>" name="call" id="call">
+                      <input type="hidden" value="" name="start_date" id="start_date">
+                      <input type="hidden" value="" name="end_date" id="end_date">
+					  <div id="reportrange2" class="pull-left form-control">
+                          <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                            <span></span>
                         </div>
 
 					 
 					 </div>
+					     <div class="col-sm-1">
+                            <input type="submit" class="btn btn-primary" value="search" id="submit"> 
+                                
+                            </div>
+					 
+					 </form>
 					
                        </div>                   
 	              </div>
@@ -150,16 +172,37 @@ while ($resultcountry= $get_country->fetch())
             </tr>
         </thead>
         <tbody>
-		<?php $i=1; //print_r($vicidial_netsuite_country);?>
-		<?php foreach($vicidial_netsuite_country as $key =>$rowcountry){  ?>
+		<?php $i=1;?>
+		<?php 
+		 if($_GET['start_date']!='' and $_GET['end_date']!='')
+		 {
+		  $startdate = $_GET['start_date'];
+		  $end_date =  $_GET['end_date'];
+		  
+		  //echo $startdate."end date".$end_date  ; die;
+		 }
+			
+			
+		$counter = 0;
+		foreach($vicidial_netsuite_country as $key=>$row){ 
+		if($startdate!=''){ //echo $startdate."end date".$end_date  ; die;
+		$countcountry= "SELECT COUNT(country) AS countrycount FROM outcalls AS ot WHERE country='".$row['phonecode']."' AND (call_answer_time BETWEEN '".$startdate."' AND '".$end_date."') ";
+		} else {
+		$countcountry= "SELECT COUNT(country) AS countrycount FROM outcalls AS ot WHERE country='".$row['phonecode']."' ORDER BY countrycount DESC";
+		
+		}
+		$get_countcountry = $conn->query($countcountry, PDO::FETCH_ASSOC);
+		$countc= $get_countcountry->fetch();
+		//print_r($countc);
+		?>
             <tr>
 			<td><?php echo $i; ?></td>
-                <td><img src="assets/flags/<?php echo strtolower($rowcountry['iso']);?>.png"></td>
-                <td><?php echo $rowcountry['name'];?></td>
-                <td><?php echo $rowcountry['iso'] ;?></td>
-                <td><?php echo "+".$rowcountry['phonecode'] ;?></td>  
-				 <td><?php echo "--";?></td>             
-            </tr>
+                <td><img src="assets/flags/<?php echo strtolower($row['iso']);?>.png"></td>
+                <td><?php echo $row['name'];?></td>
+                <td><?php echo $row['iso'] ;?></td>
+                <td><?php echo "+".$row['phonecode'] ;?></td> 				
+				 <td><?php echo $countc['countrycount'];?></td> 
+			   </tr>
 			<?php $i++; } ?>
 			
             </tbody>     
@@ -280,7 +323,13 @@ $(document).ready(function() {
         window.location.href = 'agentdetails.php?user='+user;
     }
     function fnsubmitsearch(){
-        $('#popuploader').modal('show');
+    	if(document.search.start_date.value=="")
+		{
+		alert("Please Enter Date  ");
+		document.search.start_date.focus();
+		return false;
+		}
+        //$('#popuploader').modal('show');
         return true;
     }
     $(document).ready(function () {
@@ -316,8 +365,8 @@ $(document).ready(function() {
      $('#reportrange2').daterangepicker({
             "showDropdowns": true,
             "linkedCalendars": false,
-            "startDate": "10/06/2020",
-            "endDate": "10/12/2020"
+            "startDate": "10/06/2021",
+            "endDate": "10/12/2021"
         }, function(start, end, label) {
             $('#reportrange2 span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
             $('#start_date').val(start.format('YYYY-MM-DD'));
@@ -335,9 +384,10 @@ $(document).ready(function() {
 
     $('#submit').on("click",function(e){
         //e.preventDefault();
-        $('#page').val('');
+        $('#call').val('');
         return true;
     });
+
 
 </script>
 
@@ -448,8 +498,9 @@ $(document).ready(function() {
             FlotChart.prototype.init = function() {
 
                 //Pie graph data
-                var pielabels = ["0s", "1s", "2s", "3s", "4s", "5s"];
-                var datas = <?php echo json_encode($custRatingsArr)?>;
+               // var pielabels = ["0s", "1s", "2s", "3s", "4s", "5s"];
+			   var pielabels = <?php echo json_encode($counttotal_countryname)?>;
+                var datas = <?php echo json_encode($counttotal_country)?>;
                 var colors = ['#DCDCDC', '#b2dafd', '#188ae2', '#4bd396', "#f5707a", "#f9c851"];
                 this.createPieGraph("#pie-chart #pie-chart-container", pielabels, datas, colors);
 
